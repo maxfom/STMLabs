@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Parse users</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div id="controls" class="hide">
+		<input class="form-control" type="text" placeholder="Input request" id="search-text" onkeyup="tableSearch()">
+		<button onclick="resetSearch()">Reset Search</button>
+		<table id="myTable" cellpadding="2" cellspacing="2" onclick="tester()"></table>
+		<div id="message"></div>
+		</div>
+		
+		<div class="results"><img class="loader" src="spinner.gif"></div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script src="script.js"></script>
+		<script>		
+				function debounce(func, wait, immediate) {
+					  let timeout;
+					
+					  return function tableSearch() {
+						const context = this;
+						const args = arguments;
+					
+						const later = function() {
+						  timeout = null;
+						  if (!immediate) func.apply(context, args);
+						};
+					
+						const callNow = immediate && !timeout;
+					
+						clearTimeout(timeout);
+					
+						timeout = setTimeout(later, wait);
+					
+						if (callNow) func.apply(context, args);
+					  };
+					};
+					
+					
+					const returnedFunction = debounce(function() {
+						  tableSearch(),
+						  console.log('debounce');
+						}, 1000);
+						
+						window.addEventListener('keyup', returnedFunction);
+				
+				
+		</script>
+	</body>
+</html>
